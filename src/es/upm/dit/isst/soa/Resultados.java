@@ -7,13 +7,40 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-@Path("resultados")
-public class Resultados {
-	@GET 
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getResultados(@DefaultValue("2016") @QueryParam("año") String año ){
-		
 
-		return "Results of '"+año+"' ";
+public class Resultados {
+	
+	private String partidoVoto = "";
+	private int votos = 0;
+	
+	public Resultados(String partido, int votos) {
+		this.partidoVoto = partido;
+		this.votos = votos;
 	}
+	
+	public String getPartidoVoto() {
+		return partidoVoto;
+	}
+
+
+
+	public void setPartidoVoto(String partidoVoto) {
+		this.partidoVoto = partidoVoto;
+	}
+
+
+
+	public int getVotos() {
+		return votos;
+	}
+
+
+
+	public void setVotos(int votos) {
+		this.votos = votos;
+	}
+
+	
 }
+
+
