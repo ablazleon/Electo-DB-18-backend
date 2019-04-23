@@ -21,9 +21,7 @@ public class Resultados {
 	public String getPartidoVoto() {
 		return partidoVoto;
 	}
-
-
-
+	
 	public void setPartidoVoto(String partidoVoto) {
 		this.partidoVoto = partidoVoto;
 	}
