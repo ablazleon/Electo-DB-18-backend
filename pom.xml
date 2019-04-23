@@ -55,5 +55,8 @@
    		<artifactId>jersey-hk2</artifactId>
    		<version>2.26</version>
   	</dependency>
+  	
+
+  	
   </dependencies>
 </project>
