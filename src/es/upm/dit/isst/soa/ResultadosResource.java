@@ -10,8 +10,15 @@ import javax.ws.rs.core.MediaType;
 @Path("resultados")
 public class ResultadosResource {
 	
+	private static Resultados resultado;
 	
-	Resultados resultado = new Resultados("PSOE", 4500000);
+	public ResultadosResource(){
+		
+	}
+	
+	static {
+		 resultado = new Resultados("PSOE", 4500000);
+	}
 	
 	//public String getResultados(@DefaultValue("2016") @QueryParam("anno") String anno ){
 	@GET 
