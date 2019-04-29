@@ -59,7 +59,12 @@
    	 <groupId>org.glassfish.jersey.media</groupId> 
     	<artifactId>jersey-media-moxy</artifactId> 
     <version>2.26</version> 
-</dependency> 
-  	
+	</dependency> 
+	
+  	<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.199</version>
+	</dependency>
   </dependencies>
 </project>

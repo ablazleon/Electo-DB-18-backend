@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: ablaz
-Build-Jdk: 1.8.0_201
+Built-By: isst
+Build-Jdk: 1.8.0_151
 Created-By: Maven Integration for Eclipse
 
