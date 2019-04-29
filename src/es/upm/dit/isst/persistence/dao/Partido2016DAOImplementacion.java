@@ -5,16 +5,17 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import es.upm.dit.isst.persistence.model.Circunscripcion2016;
+import es.upm.dit.isst.persistence.model.Partido2016;
 
-public class Circunscripcion2016DAOImplementation implements Circunscripcion2016DAO{
-	private static Circunscripcion2016DAOImplementation instance;
-	private Circunscripcion2016DAOImplementation() {};
+
+public class Partido2016DAOImplementacion implements Partido2016DAO{
+	private static Partido2016DAOImplementacion instance;
+	private Partido2016DAOImplementacion() {};
 	
 	
-	public static Circunscripcion2016DAOImplementation getInstance() {
+	public static Partido2016DAOImplementacion getInstance() {
 		if(null== instance) {
-			instance = new Circunscripcion2016DAOImplementation();
+			instance = new Partido2016DAOImplementacion();
 		}
 		return instance;
 	}
@@ -26,11 +27,11 @@ public class Circunscripcion2016DAOImplementation implements Circunscripcion2016
 	// 4. Se cierra la sesión.
 	
 	@Override
-	public void create(Circunscripcion2016 circunscripcion2016) {
+	public void create(Partido2016 p) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
 			session.beginTransaction();
-			session.save(circunscripcion2016);
+			session.save(p);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			// manejar excepciones
@@ -41,12 +42,12 @@ public class Circunscripcion2016DAOImplementation implements Circunscripcion2016
 	}
 
 	@Override
-	public Circunscripcion2016 read(int idCirc) {
-		Circunscripcion2016 c = null;
+	public Partido2016 read(int idPartido) {
+		Partido2016 c = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {
 			session.beginTransaction();
-			c = session.get(Circunscripcion2016.class, idCirc);
+			c = session.get(Partido2016.class, idPartido);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			// manejar excepciones
@@ -57,7 +58,7 @@ public class Circunscripcion2016DAOImplementation implements Circunscripcion2016
 	}
 
 	@Override
-	public void update(Circunscripcion2016 c) {
+	public void update(Partido2016 c) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
 			session.beginTransaction();
@@ -72,7 +73,7 @@ public class Circunscripcion2016DAOImplementation implements Circunscripcion2016
 	}
 
 	@Override
-	public void delete(Circunscripcion2016 c) {
+	public void delete(Partido2016 c) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
 			session.beginTransaction();
@@ -89,13 +90,13 @@ public class Circunscripcion2016DAOImplementation implements Circunscripcion2016
 	
 
 	@Override
-	public List<Circunscripcion2016> readAll() {
-		List<Circunscripcion2016> cs = new ArrayList<>();
+	public List<Partido2016> readAll() {
+		List<Partido2016> cs = new ArrayList<>();
 		Session session = SessionFactoryService.get().openSession();
 		try {
 			session.beginTransaction();
 			cs.addAll(
-					session.createQuery("from Circunscripcion2016").list()
+					session.createQuery("from Partido2016").list()
 					);
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -106,5 +107,4 @@ public class Circunscripcion2016DAOImplementation implements Circunscripcion2016
 		return cs;
 	}
 
-	
 }
