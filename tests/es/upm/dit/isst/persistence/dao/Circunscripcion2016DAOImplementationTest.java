@@ -16,6 +16,11 @@ class Circunscripcion2016DAOImplementationTest {
 	void tearDown() throws Exception {
 	}
 
+	/**
+	 * Comprueba que al crearse, el Partido2016 al que acceso con read(email) es el mismo
+	 * que el objeto Partido2016 inicial.
+	 * 
+	 */
 	@Test
 	void testCreate() {
 		fail("Not yet implemented");

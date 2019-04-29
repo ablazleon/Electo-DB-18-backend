@@ -6,6 +6,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import es.upm.dit.isst.webLab.dao.ProfessorDAO;
+import es.upm.dit.isst.webLab.dao.ProfessorDAOImplementation;
+import es.upm.dit.isst.webLab.model.Professor;
+
 class Partido2016DAOImplementacionTest {
 
 	@BeforeEach
@@ -18,7 +22,18 @@ class Partido2016DAOImplementacionTest {
 
 	@Test
 	void testCreate() {
-		fail("Not yet implemented");
+		
+		Professor p1 = new Professor();
+		p1.setEmail("ejemplopa@alumnos.upm.es");
+		ProfessorDAO tdao = ProfessorDAOImplementation.getInstance();
+		tdao.create(p1);
+		
+		Professor pread = tdao.read(p1.getEmail());
+		
+		assertEquals(pread.getEmail(), p1.getEmail());
+		assertEquals(pread.getName(), p1.getName());
+	
+		tdao.delete(p1);
 	}
 
 	@Test
