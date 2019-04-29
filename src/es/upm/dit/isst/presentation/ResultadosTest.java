@@ -1,4 +1,4 @@
-package es.upm.dit.isst.soa;
+package es.upm.dit.isst.presentation;
 
 import static org.junit.jupiter.api.Assertions.*;
 

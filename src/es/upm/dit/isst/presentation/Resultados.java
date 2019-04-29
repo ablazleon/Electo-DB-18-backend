@@ -1,4 +1,4 @@
-package es.upm.dit.isst.soa;
+package es.upm.dit.isst.presentation;
 
 
 public class Resultados {
