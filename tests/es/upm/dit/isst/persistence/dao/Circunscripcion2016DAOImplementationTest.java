@@ -70,9 +70,6 @@ class Circunscripcion2016DAOImplementationTest {
 			}
 		}
 		
-//			assertTrue(tdao.readAll().contains(tfg1), "There is an initial tfg1");
-//			assertTrue(tdao.readAll().contains(tfg2), "There is an initial tfg2");
-		
 		tdao.delete(c1);
 		tdao.delete(c2);
 	}
