@@ -68,8 +68,7 @@ class Circunscripcion2016DAOImplementationTest {
 			if(p.getIdCirc() == c2.getIdCirc()) {
 				assertTrue(p.getIdCirc() == c2.getIdCirc(), "There is tfg1");
 			}
-		}
-		
+		}	
 		tdao.delete(c1);
 		tdao.delete(c2);
 	}
