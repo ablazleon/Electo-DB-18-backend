@@ -24,7 +24,7 @@ class Circunscripcion2016DAOImplementationTest {
 	 * 
 	 */
 	@Test
-	void testCreatePartido2016CreatedMatchsPartido2016Read() {
+	void testCreateCirc2016CreatedMatchsCirc2016Read() {
 		
 		Circunscripcion2016 c1 = new Circunscripcion2016();
 		c1.setIdCirc(1);
