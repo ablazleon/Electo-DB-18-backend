@@ -8,14 +8,14 @@ import org.hibernate.Session;
 import es.upm.dit.isst.persistence.model.Partido2016;
 
 
-public class Partido2016DAOImplementacion implements Partido2016DAO{
-	private static Partido2016DAOImplementacion instance;
-	private Partido2016DAOImplementacion() {};
+public class Partido2016DAOImplementation implements Partido2016DAO{
+	private static Partido2016DAOImplementation instance;
+	private Partido2016DAOImplementation() {};
 	
 	
-	public static Partido2016DAOImplementacion getInstance() {
+	public static Partido2016DAOImplementation getInstance() {
 		if(null== instance) {
-			instance = new Partido2016DAOImplementacion();
+			instance = new Partido2016DAOImplementation();
 		}
 		return instance;
 	}

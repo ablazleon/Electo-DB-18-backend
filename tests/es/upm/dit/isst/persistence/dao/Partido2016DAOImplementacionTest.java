@@ -6,9 +6,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import es.upm.dit.isst.webLab.dao.ProfessorDAO;
-import es.upm.dit.isst.webLab.dao.ProfessorDAOImplementation;
-import es.upm.dit.isst.webLab.model.Professor;
+import es.upm.dit.isst.persistence.dao.Partido2016DAO;
+import es.upm.dit.isst.persistence.dao.Partido2016DAOImplementation;
+import es.upm.dit.isst.persistence.model.Partido2016;
 
 class Partido2016DAOImplementacionTest {
 
@@ -21,19 +21,19 @@ class Partido2016DAOImplementacionTest {
 	}
 
 	@Test
-	void testCreate() {
+	void testCreatePartido2016CreatedMatchsPartido2016Read() {
 		
-		Professor p1 = new Professor();
-		p1.setEmail("ejemplopa@alumnos.upm.es");
-		ProfessorDAO tdao = ProfessorDAOImplementation.getInstance();
-		tdao.create(p1);
+		Partido2016 p1 = new Partido2016();
+		p1.setIdPartido(1);
+		Partido2016DAO pdao = Partido2016DAOImplementation.getInstance();
+		pdao.create(p1);
 		
-		Professor pread = tdao.read(p1.getEmail());
+		Partido2016 pread = pdao.read(p1.getIdPartido());
 		
-		assertEquals(pread.getEmail(), p1.getEmail());
-		assertEquals(pread.getName(), p1.getName());
+		assertEquals(pread.getIdPartido(), p1.getIdPartido());
+		assertEquals(pread.getVotes(), p1.getVotes());
 	
-		tdao.delete(p1);
+		pdao.delete(p1);
 	}
 
 	@Test
