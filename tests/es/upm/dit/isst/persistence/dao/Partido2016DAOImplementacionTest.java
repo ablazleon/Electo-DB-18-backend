@@ -20,6 +20,11 @@ class Partido2016DAOImplementacionTest {
 	void tearDown() throws Exception {
 	}
 
+	/**
+	 * Comprueba que al crearse varios Ps, si se accede con readAll() estos Ps son los mismo que 
+	 * los objeto P iniciales.
+	 * 
+	 */
 	@Test
 	void testCreatePartido2016CreatedMatchsPartido2016Read() {
 		
@@ -36,9 +41,41 @@ class Partido2016DAOImplementacionTest {
 		pdao.delete(p1);
 	}
 
+	/**
+	 * Comprueba que al crearse varios Ps, si se accede con readAll() estos Ps son los mismo que 
+	 * los objeto P iniciales.
+	 * 
+	 */
 	@Test
-	void testReadAll() {
-		fail("Not yet implemented");
+	void testReadAll() {	
+		
+		Partido2016 p1 = new Partido2016();
+		p1.setIdPartido(1);
+		Partido2016 p2 = new Partido2016();
+		p2.setIdPartido(2);
+		
+		Partido2016DAO tdao = Partido2016DAOImplementation.getInstance();
+		
+		assertFalse(tdao.readAll().contains(p1), "There is no initial p1");
+		assertFalse(tdao.readAll().contains(p2), "There is no initial p2");
+		
+		tdao.create(p1);
+		tdao.create(p2);
+		
+		for(Partido2016 p : tdao.readAll()) {
+			System.out.println(p.getIdPartido());
+			if(p.getIdPartido() == p1.getIdPartido()) {
+				assertTrue(p.getIdPartido() == p1.getIdPartido(), "There is tfg1");
+			}
+			if(p.getIdPartido() == p2.getIdPartido()) {
+				assertTrue(p.getIdPartido() == p2.getIdPartido(), "There is tfg1");
+			}
+		}
+		
+//			assertTrue(tdao.readAll().contains(tfg1), "There is an initial tfg1");
+//			assertTrue(tdao.readAll().contains(tfg2), "There is an initial tfg2");
+		
+		tdao.delete(p1);
+		tdao.delete(p2);
 	}
-
 }
