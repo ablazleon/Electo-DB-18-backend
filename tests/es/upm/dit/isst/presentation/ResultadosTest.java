@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 class ResultadosTest {
 
 	
-	@Test
-	void DevuelveJSON() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void DevuelveJSON() {
+//		fail("Not yet implemented");
+//	}
 
 }

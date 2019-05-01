@@ -7,6 +7,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import es.upm.dit.isst.persistence.dao.Circunscripcion2016DAOImplementation;
+
 @Path("resultados")
 public class ResultadosResource {
 	
@@ -24,6 +26,7 @@ public class ResultadosResource {
 	@GET 
 	@Produces(MediaType.APPLICATION_JSON)
 	public Resultados getResultados(@DefaultValue("PSOE") @QueryParam("partido") String partido ){
+		Circunscripcion2016DAOImplementation.getInstance().readAll();
 		//return "Results of '"+anno+"' ";
 		return resultado;
 	}
