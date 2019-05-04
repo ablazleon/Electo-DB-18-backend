@@ -29,7 +29,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 
 	@Override
 	public void readVotesAndDHontSeats() {
-		File file = new File("Hello1.txt");
+		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend_3\\2016.csv");
 //		System.out.println("Working Directory = " +
 //	              System.getProperty("user.dir"));
 //		String filePath =  System.getProperty("user.dir");
@@ -42,15 +42,17 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 					.withHeader("idComunidad", "idCircunscripcion", "idYear", "idParty", "votes", "percentage", "seatsDhont")
 					.parse(in);
 			for (CSVRecord pr : partyResults) {
-				String idParty = pr.get("idPart");
-				System.out.println("idParty: "+ idParty);
+				String idParty = pr.get("idParty");
+				String idComunidad = pr.get("idComunidad");
+				String idCircunscripcion = pr.get("idCircunscripcion");
+				if( idComunidad == null && idCircunscripcion == null) System.out.println("Campos que quiero");
+					System.out.println("idParty: "+ idParty);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+		return;
 	}
 
 	@Override
