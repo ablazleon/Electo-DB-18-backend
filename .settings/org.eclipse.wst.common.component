@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/tests"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/assets"/>
         <property name="context-root" value="ISST-19-rest"/>
         <property name="java-output-path" value="/Electo-DB-18-backend/target/classes"/>
     </wb-module>

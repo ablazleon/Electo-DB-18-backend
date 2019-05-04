@@ -42,7 +42,7 @@ public class Partido2016DAOImplementation implements Partido2016DAO{
 	}
 
 	@Override
-	public Partido2016 read(int idPartido) {
+	public Partido2016 read(String idPartido) {
 		Partido2016 c = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {

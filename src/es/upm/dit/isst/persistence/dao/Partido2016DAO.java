@@ -8,7 +8,7 @@ public interface Partido2016DAO {
 
 	public void create(Partido2016 p);
 	
-	public Partido2016 read(int idCirc);
+	public Partido2016 read(String idPartido);
 	
 	public void update(Partido2016 p);
 	

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Partido2016 implements Serializable {
 	
 	@Id
-	private int idPartido;
+	private String idPartido;
 	
 	private int votes;
 	
@@ -17,11 +17,11 @@ public class Partido2016 implements Serializable {
 	
 	private int seatsSL;
 	
-	public int getIdPartido() {
+	public String getIdPartido() {
 		return idPartido;
 	}
 
-	public void setIdPartido(int idPartido) {
+	public void setIdPartido(String idPartido) {
 		this.idPartido = idPartido;
 	}
 

@@ -29,7 +29,7 @@ class Partido2016DAOImplementacionTest {
 	void testCreatePartido2016CreatedMatchsPartido2016Read() {
 		
 		Partido2016 p1 = new Partido2016();
-		p1.setIdPartido(1);
+		p1.setIdPartido("FE");
 		Partido2016DAO pdao = Partido2016DAOImplementation.getInstance();
 		pdao.create(p1);
 		
@@ -50,9 +50,9 @@ class Partido2016DAOImplementacionTest {
 	void testReadAll() {	
 		
 		Partido2016 p1 = new Partido2016();
-		p1.setIdPartido(1);
+		p1.setIdPartido("FE");
 		Partido2016 p2 = new Partido2016();
-		p2.setIdPartido(2);
+		p2.setIdPartido("PACMA");
 		
 		Partido2016DAO tdao = Partido2016DAOImplementation.getInstance();
 		
