@@ -39,13 +39,13 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 		try {
 			Reader in = new FileReader(file);
 			CSVParser partyResults = CSVFormat.EXCEL
-					.withHeader("idComunidad", "idCircunscripcion", "idYear", "idParty", "votes", "percentage", "seatsDhont")
+					.withHeader("idComunidad", "idCircunscripcion", "idYear", "idParty", "votes", "percentage", "seatsDhont", "idColor")
 					.parse(in);
 			for (CSVRecord pr : partyResults) {
 				String idParty = pr.get("idParty");
 				String idComunidad = pr.get("idComunidad");
 				String idCircunscripcion = pr.get("idCircunscripcion");
-				if( idComunidad == null && idCircunscripcion == null) System.out.println("Campos que quiero");
+				if( idComunidad == "0" && idCircunscripcion == "0") System.out.println("Campos que quiero");
 					System.out.println("idParty: "+ idParty);
 			}
 		} catch (IOException e) {

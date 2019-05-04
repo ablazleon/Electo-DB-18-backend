@@ -15,7 +15,7 @@ import javax.persistance.GenerationType;
 public class Votos implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idVotos;
 	
 	private int votos;
