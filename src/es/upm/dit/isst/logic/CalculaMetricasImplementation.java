@@ -28,7 +28,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	}
 
 	@Override
-	public void readVotesAndDHontSeats() {
+	public void storeVotes() {
 		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend_3\\2016.csv");
 //		System.out.println("Working Directory = " +
 //	              System.getProperty("user.dir"));
