@@ -7,8 +7,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistance.GeneratedValue;
-import javax.persistance.GenerationType;
+//import javax.persistance.GeneratedValue;
+//import javax.persistance.GenerationType;
 
 
 @Entity
