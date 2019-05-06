@@ -1,10 +1,10 @@
 package es.upm.dit.isst.persistence.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 //import javax.persistance.GeneratedValue;
@@ -15,12 +15,22 @@ import javax.persistence.ManyToOne;
 public class Votos implements Serializable{
 	
 	@Id
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idVotos;
 	
 	private int votos;
-	private Date fecha;
+	private int fecha;
 	
+	@ManyToOne
+	private Provincia prov;
+	
+	@ManyToOne
+	private Partido part;
+	
+	public Votos() {
+		
+	}
+
 	public long getIdVotos() {
 		return idVotos;
 	}
@@ -37,36 +47,20 @@ public class Votos implements Serializable{
 		this.votos = votos;
 	}
 
-	public Date getFecha() {
+	public int getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(int fecha) {
 		this.fecha = fecha;
 	}
 
-	public int getEscD() {
-		return escD;
+	public Provincia getProv() {
+		return prov;
 	}
 
-	public void setEscD(int escD) {
-		this.escD = escD;
-	}
-
-	public int getEscS() {
-		return escS;
-	}
-
-	public void setEscS(int escS) {
-		this.escS = escS;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	public void setProv(Provincia prov) {
+		this.prov = prov;
 	}
 
 	public Partido getPart() {
@@ -76,12 +70,7 @@ public class Votos implements Serializable{
 	public void setPart(Partido part) {
 		this.part = part;
 	}
-
-	private int escD;
-	private int escS;
-	private String provincia;
 	
-	@ManyToOne
-	private Partido part;
+	
 
 }

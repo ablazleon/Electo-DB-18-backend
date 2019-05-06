@@ -13,23 +13,18 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import es.upm.dit.isst.persistence.dao.*;
+import es.upm.dit.isst.persistence.model.*;
+
 public class CalculaMetricasImplementation implements CalculaMetricas{
 
 	private Map<String, DataCSVElectionResource> csvStore = new HashMap<String, DataCSVElectionResource>();
 	
-	/**
-	 * 1. Parteis are defined
-	 * 2. Then, it is read from the csv.
-	 */
 	@Override
-	public String[] loadIdParties2016() {
-		String[] idParties= {"PP","PSOE","PODEMOS-IU-EQUO","C's","ERC-CATSI","CDC","EAJ-PNV","EH Bildu","CCa-PNC","PACMA","Recortes Cero-Grupo Verde","UPyD","VOX"};
-		return idParties;
-	}
-
-	@Override
-	public void storeVotes() {
-		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend_3\\2016.csv");
+	public void readProvincias() {
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Provincia.csv");
+		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
+		
 //		System.out.println("Working Directory = " +
 //	              System.getProperty("user.dir"));
 //		String filePath =  System.getProperty("user.dir");
@@ -39,32 +34,98 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 		try {
 			Reader in = new FileReader(file);
 			CSVParser partyResults = CSVFormat.EXCEL
-					.withHeader("idComunidad", "idCircunscripcion", "idYear", "idParty", "votes", "percentage", "seatsDhont", "idColor")
+					.withHeader("idProvincia", "escanos").withDelimiter(';')
 					.parse(in);
 			for (CSVRecord pr : partyResults) {
-				String idParty = pr.get("idParty");
-				String idComunidad = pr.get("idComunidad");
-				String idCircunscripcion = pr.get("idCircunscripcion");
-				if( idComunidad == "0" && idCircunscripcion == "0") System.out.println("Campos que quiero");
-					System.out.println("idParty: "+ idParty);
+				
+				String provR = pr.get("idProvincia");
+				int escanosR = Integer.parseInt(pr.get("escanos"));
+				
+				Provincia provincia = new Provincia();
+				provincia.setIdNombre(provR);
+				provincia.setEscanos(escanosR);
+				
+				prodao.create(provincia);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return;
 	}
-
+	
 	@Override
-	public void findIdPartyMostVotedEachCircuncription() {
-		// TODO Auto-generated method stub
+	public void readPartidos() {
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Partidos.csv");
+		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
 		
+//		System.out.println("Working Directory = " +
+//	              System.getProperty("user.dir"));
+//		String filePath =  System.getProperty("user.dir");
+//		
+//		String fileName = filePath + "src/2016.csv";
+//		System.out.println(Files.exists(Paths.get(fileName)));
+		try {
+			Reader in = new FileReader(file);
+			CSVParser partyResults = CSVFormat.EXCEL
+					.withHeader("idPartidos", "color").withDelimiter(';')
+					.parse(in);
+			for (CSVRecord pr : partyResults) {
+				
+				String partR = pr.get("idPartidos");
+				String colorR =pr.get("color");
+				
+				Partido partido = new Partido();
+				partido.setIdNombre(partR);
+				partido.setColor(colorR);
+				
+				pardao.create(partido);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
+	
 	@Override
-	public void findPropFair() {
-		// TODO Auto-generated method stub
+	public void readVotos() {
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Votos.csv");
+		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
+		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
+		VotosDAO votdao = VotosDAOImplementation.getInstance();
 		
+//		System.out.println("Working Directory = " +
+//	              System.getProperty("user.dir"));
+//		String filePath =  System.getProperty("user.dir");
+//		
+//		String fileName = filePath + "src/2016.csv";
+//		System.out.println(Files.exists(Paths.get(fileName)));
+		try {
+			Reader in = new FileReader(file);
+			CSVParser partyResults = CSVFormat.EXCEL
+					.withHeader("idVoto","votos", "fecha", "prov", "part").withDelimiter(';')
+					.parse(in);
+			for (CSVRecord pr : partyResults) {
+				
+				int votosR = Integer.parseInt(pr.get("votos"));
+				int fechaR = Integer.parseInt(pr.get("fecha"));
+				String provR = pr.get("prov");
+				String partR = pr.get("part");
+				
+				Votos votos = new Votos();
+				
+				votos.setVotos(votosR);
+				votos.setFecha(fechaR);
+				
+				votos.setProv(prodao.read(provR));
+				votos.setPart(pardao.read(partR));
+				
+				votdao.create(votos);
+						
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

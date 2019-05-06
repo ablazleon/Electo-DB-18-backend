@@ -14,7 +14,8 @@
 		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
-		<mapping class="es.upm.dit.isst.persistence.model.Circunscripcion2016" />
-		<mapping class="es.upm.dit.isst.persistence.model.Partido2016" />
+		<mapping class="es.upm.dit.isst.persistence.model.Provincia" />
+		<mapping class="es.upm.dit.isst.persistence.model.Partido" />
+		<mapping class="es.upm.dit.isst.persistence.model.Votos" />
 	</session-factory>
 </hibernate-configuration>

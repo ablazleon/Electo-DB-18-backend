@@ -20,6 +20,10 @@ public class Partido implements Serializable{
 	@OneToMany(mappedBy="part", fetch=FetchType.EAGER)
 	private List<Votos> votosPart;
 
+	public Partido () {
+		
+	}
+	
 	public String getIdNombre() {
 		return idNombre;
 	}
