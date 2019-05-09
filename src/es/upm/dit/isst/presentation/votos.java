@@ -1,20 +1,26 @@
 package es.upm.dit.isst.presentation;
 
 public class votos {
-	private String provincia;
+	private String partido;
 	private int votos;
 	private int escanos;
 	
 	public votos() {
 		
 	}
-	
-	public String getProvincia() {
-		return provincia;
+
+	public votos(String partido, int votos, int escanos) {
+		this.partido = partido;
+		this.votos = votos;
+		this.escanos = escanos;
 	}
 
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	public String getPartido() {
+		return partido;
+	}
+
+	public void setPartido(String partido) {
+		this.partido = partido;
 	}
 
 	public int getVotos() {
@@ -32,10 +38,5 @@ public class votos {
 	public void setEscanos(int escanos) {
 		this.escanos = escanos;
 	}
-
-	public votos(String provincia, int votos, int escanos) {
-		this.provincia = provincia;
-		this.votos = votos;
-		this.escanos = escanos;
-	}
+	
 }

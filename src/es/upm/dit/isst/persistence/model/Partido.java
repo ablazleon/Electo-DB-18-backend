@@ -17,8 +17,8 @@ public class Partido implements Serializable{
 	
 	private String color;
 	
-	@OneToMany(mappedBy="part", fetch=FetchType.EAGER)
-	private List<Votos> votosPart;
+	//@OneToMany(mappedBy="part", fetch=FetchType.LAZY)
+	//private List<Votos> votosPart;
 
 	public Partido () {
 		
@@ -38,16 +38,5 @@ public class Partido implements Serializable{
 
 	public void setColor(String color) {
 		this.color = color;
-	}
-
-	public List<Votos> getVotosPart() {
-		return votosPart;
-	}
-
-	public void setVotosPart(List<Votos> votosPart) {
-		this.votosPart = votosPart;
-	}
-	
-	
-	
+	}	
 }

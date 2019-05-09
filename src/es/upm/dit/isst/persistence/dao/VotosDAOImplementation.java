@@ -1,6 +1,7 @@
 package es.upm.dit.isst.persistence.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.Session;
 
@@ -10,7 +11,7 @@ import es.upm.dit.isst.persistence.model.Votos;
 
 public class VotosDAOImplementation implements VotosDAO {
 
-	private static  VotosDAOImplementation instancia = null;
+	private static VotosDAOImplementation instancia = null;
 	
 	private VotosDAOImplementation() {}
 	
@@ -39,7 +40,7 @@ public class VotosDAOImplementation implements VotosDAO {
 	}
 
 	@Override
-	public Votos read(int idVotos) {
+	public Votos read(long idVotos) {
 		Votos votos = null;
 		// TODO Auto-generated method stub
 		Session session = SessionFactoryService.get().openSession();
@@ -88,10 +89,53 @@ public class VotosDAOImplementation implements VotosDAO {
 		  session.close();
 		}
 	}
+	
+	@Override
+	public List<Votos> filtroPorAnnoYProvincia(int anno, String prov) {
+		List<Votos> votosList = null;
+		// TODO Auto-generated method stub
+		Session session = SessionFactoryService.get().openSession();
+		try {
+		  session.beginTransaction();
+		  // operaciones
+		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno AND v.prov.idNombre = :prov")
+				  .setParameter("prov", prov)
+				  .setParameter("anno", anno)
+				  .list();
+				 
+		  session.getTransaction().commit();
+		} catch (Exception e) {
+		  // manejar excepciones
+		} finally {
+		  session.close();
+		}
+		return votosList;
+	}
+	
+	@Override
+	public List<Votos> filtroPorAnno(int anno) {
+		List<Votos> votosList = null;
+		// TODO Auto-generated method stub
+		Session session = SessionFactoryService.get().openSession();
+		try {
+		  session.beginTransaction();
+		  // operaciones
+		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno ORDER BY v.prov.idNombre, v.votos DESC")
+				  .setParameter("anno", anno)
+				  .list();
+				 
+		  session.getTransaction().commit();
+		} catch (Exception e) {
+		  // manejar excepciones
+		} finally {
+		  session.close();
+		}
+		return votosList;
+	}
 
 	@Override
-	public Collection<Votos> readAll() {
-		Collection<Votos> votosList = null;
+	public List<Votos> readAll() {
+		List<Votos> votosList = null;
 		// TODO Auto-generated method stub
 		Session session = SessionFactoryService.get().openSession();
 		try {

@@ -16,8 +16,8 @@ public class Provincia {
 	
 	private int escanos;
 	
-	@OneToMany(mappedBy="prov", fetch=FetchType.EAGER)
-	private List<Votos> votosPart;
+	//@OneToMany(mappedBy="prov", fetch=FetchType.LAZY)
+	//private List<Votos> votosPart;
 	
 	public Provincia() {
 		
@@ -43,13 +43,4 @@ public class Provincia {
 	public void setEscanos(int escanos) {
 		this.escanos = escanos;
 	}
-
-	public List<Votos> getVotosPart() {
-		return votosPart;
-	}
-
-	public void setVotosPart(List<Votos> votosPart) {
-		this.votosPart = votosPart;
-	}
-	
 }
