@@ -40,7 +40,7 @@ public class ResultadosResource {
 	@GET 
 	@Produces(MediaType.APPLICATION_JSON)
 	public DatoPrueba getResultados(@DefaultValue("2016") @QueryParam("anno") int anno,
-									@DefaultValue("Nacional") @QueryParam("provincia") String provincia,
+									@DefaultValue("Madrid") @QueryParam("provincia") String provincia,
 									@DefaultValue("Dhondt") @QueryParam("leyEscano") String leyEscanos){
 		
 		//CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
@@ -57,9 +57,13 @@ public class ResultadosResource {
 		for(int i = 0; i < votoss.length; i++) {
 			int votos = arrayVotosProv[i].getVotos();
 			String nombrePartido = "null";
+			String color = "black";
 			Partido partido = arrayVotosProv[i].getPart();
-			if(partido != null) nombrePartido = partido.getIdNombre();
-			votoss[i] = new votos(nombrePartido, votos, 13);
+			if(partido != null) {
+				nombrePartido = partido.getIdNombre();
+				color = partido.getColor();
+			}
+			votoss[i] = new votos(nombrePartido, votos, 13, color);
 		}
 		
 		List<Votos> votosAnno = vdao.filtroPorAnno(anno);

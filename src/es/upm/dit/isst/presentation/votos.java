@@ -4,15 +4,17 @@ public class votos {
 	private String partido;
 	private int votos;
 	private int escanos;
+	private String color;
 	
 	public votos() {
 		
 	}
 
-	public votos(String partido, int votos, int escanos) {
+	public votos(String partido, int votos, int escanos, String color) {
 		this.partido = partido;
 		this.votos = votos;
 		this.escanos = escanos;
+		this.color = color;
 	}
 
 	public String getPartido() {
@@ -38,5 +40,12 @@ public class votos {
 	public void setEscanos(int escanos) {
 		this.escanos = escanos;
 	}
-	
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 }
