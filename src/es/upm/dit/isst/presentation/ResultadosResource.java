@@ -50,14 +50,14 @@ public class ResultadosResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public DatoPrueba getResultados(@DefaultValue("2016") @QueryParam("anno") int anno,
 									@DefaultValue("Madrid") @QueryParam("provincia") String provincia,
-									@DefaultValue("Dhondt") @QueryParam("leyEscano") String leyEscanos){
+									@DefaultValue("0") @QueryParam("leyEscano") String leyEscanos){
 		
 		
 		// 1. Rellena la BBDD
-		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
-		cmi.readPartidos();
-		cmi.readProvincias();
-		cmi.readVotos();
+		//CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+		//cmi.readPartidos();
+		//cmi.readProvincias();
+		//cmi.readVotos();
 		
 		 // 2. Crea json
 		 //	 Rellena mapa
