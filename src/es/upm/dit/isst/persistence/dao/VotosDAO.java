@@ -21,4 +21,9 @@ public interface VotosDAO {
 
 	public List<Votos> readAll();
 	
+	public void CalculaD(List<Votos> votosList);
+	
+	public void CalculaS(List<Votos> votosList);
+
+	
 }

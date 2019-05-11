@@ -27,10 +27,12 @@ public class Votos implements Serializable{
 	@ManyToOne
 	private Partido part;
 	
+	private int escanosD;
+	private int escanosS;	
 	public Votos() {
 		
-	}
-
+	}	
+	
 	public long getIdVotos() {
 		return idVotos;
 	}
@@ -70,7 +72,21 @@ public class Votos implements Serializable{
 	public void setPart(Partido part) {
 		this.part = part;
 	}
-	
-	
+
+	public int getEscanosD() {
+		return escanosD;
+	}
+
+	public void setEscanosD(int escanosD) {
+		this.escanosD = escanosD;
+	}
+
+	public int getEscanosS() {
+		return escanosS;
+	}
+
+	public void setEscanosS(int escanosS) {
+		this.escanosS = escanosS;
+	}
 
 }

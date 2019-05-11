@@ -78,7 +78,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 				partido.setIdNombre(partR);
 				partido.setColor(colorR);
 				
-				pardao.create(partido);
+				pardao.create(partido); 
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -127,5 +127,6 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 			e.printStackTrace();
 		}
 	}
+	
 
 }
