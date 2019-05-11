@@ -22,7 +22,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readProvincias() {
-		File file = new File("/home/isst/git/Electo-DB-18-backend/Provincia.csv");
+		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend3\\Provincia.csv");
 		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
 		
 //		System.out.println("Working Directory = " +
@@ -55,7 +55,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readPartidos() {
-		File file = new File("/home/isst/git/Electo-DB-18-backend/Partidos.csv");
+		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend3\\Partidos.csv");
 		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
 		
 //		System.out.println("Working Directory = " +
@@ -88,7 +88,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readVotos() {
-		File file = new File("/home/isst/git/Electo-DB-18-backend/Votos.csv");
+		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend3\\Votos.csv");
 		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
 		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
 		VotosDAO votdao = VotosDAOImplementation.getInstance();

@@ -36,6 +36,15 @@ public class ResultadosResource {
 		 prov = new Provincia("Spain", 50);
 	}
 	
+	
+	
+	/*
+	 * 1. Rellena la BBDD
+	 * 2. Crea json
+	 * 	 Rellena mapa
+	 * 	 Rellena votos
+	 * 
+	 */
 	//public String getResultados(@DefaultValue("2016") @QueryParam("anno") String anno ){
 	@GET 
 	@Produces(MediaType.APPLICATION_JSON)
@@ -43,10 +52,17 @@ public class ResultadosResource {
 									@DefaultValue("Madrid") @QueryParam("provincia") String provincia,
 									@DefaultValue("Dhondt") @QueryParam("leyEscano") String leyEscanos){
 		
-		//CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
-		//cmi.readPartidos();
-		//cmi.readProvincias();
-		//cmi.readVotos();
+		
+		// 1. Rellena la BBDD
+		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+		cmi.readPartidos();
+		cmi.readProvincias();
+		cmi.readVotos();
+		
+		 // 2. Crea json
+		 //	 Rellena mapa
+		 //	 Rellena votos
+		 //
 		VotosDAO vdao = VotosDAOImplementation.getInstance();
 		
 		List<Votos> votosAnnoProv = vdao.filtroPorAnnoYProvincia(anno, provincia);
@@ -81,6 +97,7 @@ public class ResultadosResource {
 			color = testNullPartido.getColor();
 			partido = testNullPartido.getIdNombre();
 		}
+		
 		int votos = arrayVotos[0].getVotos();
 		mapas[0] = new mapa (prov, color, partido, votos);
 		int index = 1;
