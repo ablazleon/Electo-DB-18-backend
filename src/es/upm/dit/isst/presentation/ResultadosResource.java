@@ -40,8 +40,8 @@ public class ResultadosResource {
 	
 	/*
 	 * 1. Rellena la BBDD
-	 * 2. Crea json
-	 * 	 Rellena mapa
+	 * 2. Devuelve un json con votos y mapa.
+	 * 	 a. Votos: es un array de objetos votos
 	 * 	 Rellena votos
 	 * 
 	 */
@@ -54,32 +54,57 @@ public class ResultadosResource {
 		
 		
 		// 1. Rellena la BBDD
-		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
-		cmi.readPartidos();
-		cmi.readProvincias();
-		cmi.readVotos();
+//		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+//		cmi.readPartidos();
+//		cmi.readProvincias();
+//		cmi.readVotos();
 		
-		 // 2. Crea json
-		 //	 Rellena mapa
-		 //	 Rellena votos
-		 //
+		 // 2. Rellena json
+		 //	 Rellena votos		
+		
 		VotosDAO vdao = VotosDAOImplementation.getInstance();
-		
 		List<Votos> votosAnnoProv = vdao.filtroPorAnnoYProvincia(anno, provincia);
 		Votos[] arrayVotosProv = new Votos[votosAnnoProv.size()];
 		arrayVotosProv = votosAnnoProv.toArray(arrayVotosProv);
 		votos[] votoss = new votos[arrayVotosProv.length];
 		
-		for(int i = 0; i < votoss.length; i++) {
-			int votos = arrayVotosProv[i].getVotos();
+		int nNoPart = 0;
+		
+		for(int i = 0; i < arrayVotosProv.length; i++) {
+			Partido partido = arrayVotosProv[i].getPart();
+			if(partido == null) {
+				nNoPart++;
+				
+			}
+		}
+		
+		System.out.println("Number of votes per province that does not have party:"+nNoPart);
+		
+		votos[] votossNoNulls = new votos[arrayVotosProv.length-nNoPart];
+		// Para devolver en el campo "votos" sólo los objetos voto
+		// que tengan partido, se devuelve un "votos" que sólo tenga
+		// los votos que tengan un partido distinto de null, Votantes,
+		// Nulos, Validos y Blancos.
+
+		int in=0;
+		while( in < arrayVotosProv.length-nNoPart) {
+			
+			Partido partido = arrayVotosProv[in].getPart();
+			
+			int votos = arrayVotosProv[in].getVotos();
 			String nombrePartido = "null";
 			String color = "black";
-			Partido partido = arrayVotosProv[i].getPart();
-			if(partido != null) {
+			
+			// Si el partido existe lo meto, si no no avanzo el array.
+			while(partido != null) {
 				nombrePartido = partido.getIdNombre();
 				color = partido.getColor();
-			}
-			votoss[i] = new votos(nombrePartido, votos, 13, color);
+				in++;
+				votossNoNulls[in] = new votos(nombrePartido, votos, 13, color);
+			} 
+		
+			
+			
 		}
 		
 		List<Votos> votosAnno = vdao.filtroPorAnno(anno);
@@ -125,6 +150,6 @@ public class ResultadosResource {
 				}
 			}
 		}
-		return new DatoPrueba(mapas, votoss);
+		return new DatoPrueba(mapas, votossNoNulls);
 	}
 }
