@@ -150,5 +150,17 @@ public class VotosDAOImplementation implements VotosDAO {
 		}
 		return votosList;
 	}
-
+	
+	@Override
+	public void CalculaD(List<Votos> votosList) {
+		
+		
+		
+	}
+	
+	@Override
+	public void CalculaS(List<Votos> votosList) {
+		
+	}
+	
 }
