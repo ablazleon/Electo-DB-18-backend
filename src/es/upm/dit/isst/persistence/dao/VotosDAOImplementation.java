@@ -141,7 +141,7 @@ public class VotosDAOImplementation implements VotosDAO {
 		try {
 		  session.beginTransaction();
 		  // operaciones
-		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno ORDER BY v.prov.idNombre, v.votos DESC")
+		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno AND v.part.idNombre NOT IN ('Censo', 'null', 'Votantes', 'Nulos', 'Validos', 'Blancos') ORDER BY v.prov.idNombre, v.votos DESC")
 				  .setParameter("anno", anno)
 				  .list();
 				 

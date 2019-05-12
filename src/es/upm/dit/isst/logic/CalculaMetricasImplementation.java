@@ -70,7 +70,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 		try {
 			Reader in = new FileReader(file);
 			CSVParser partyResults = CSVFormat.EXCEL
-					.withHeader("idPartidos", "color").withDelimiter(';')
+					.withHeader("idPartidos", "color").withDelimiter(',')
 					.parse(in);
 			for (CSVRecord pr : partyResults) {
 				
@@ -91,10 +91,49 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readVotos() {
-		File file = new File("/home/isst/git/Electo-DB-18-backend/Votos.csv");
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Votos2015.csv");
 		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
 		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
 		VotosDAO votdao = VotosDAOImplementation.getInstance();
+		
+//		System.out.println("Working Directory = " +
+//	              System.getProperty("user.dir"));
+//		String filePath =  System.getProperty("user.dir");
+//		
+//		String fileName = filePath + "src/2016.csv";
+//		System.out.println(Files.exists(Paths.get(fileName)));
+		try {
+			Reader in = new FileReader(file);
+			CSVParser partyResults = CSVFormat.EXCEL
+					.withHeader("votos", "fecha", "prov", "part").withDelimiter(',')
+					.parse(in);
+			for (CSVRecord pr : partyResults) {
+				
+				int votosR = Integer.parseInt(pr.get("votos"));
+				int fechaR = Integer.parseInt(pr.get("fecha"));
+				String provR = pr.get("prov");
+				String partR = pr.get("part");
+				
+				Votos votos = new Votos();
+				
+				votos.setVotos(votosR);
+				votos.setFecha(fechaR);
+				
+				votos.setProv(prodao.read(provR));
+				votos.setPart(pardao.read(partR));
+				
+				votos.setEscD(0);
+				votos.setEscS(0);
+				
+				votdao.create(votos);
+						
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		file = new File("/home/isst/git/Electo-DB-18-backend/Votos.csv");
 		
 //		System.out.println("Working Directory = " +
 //	              System.getProperty("user.dir"));
@@ -195,7 +234,78 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 			}
 			
 			for (int i = 0; i < arrayPartidos.length; i++) {
+				arrayPartidos[i].setEscD(arrayEscanosTemporales[i]);
+				vdao.update(arrayPartidos[i]);
+				System.out.println(arrayPartidos[i].getPart().getIdNombre()+": "+arrayEscanosTemporales[i]);
+			}
+		}
+		
+		
+	}
+	
+	public void rellenaEscanosSaint(int anno) {
+		ProvinciaDAO pdao = ProvinciaDAOImplementation.getInstance();
+		VotosDAO vdao = VotosDAOImplementation.getInstance();
+		List<Provincia> provincias = pdao.readAllSinNacional();
+		System.out.println(provincias.size());
+		for (Provincia e:provincias){
+			// nombre de la provincia
+			String nombreProvincia = e.getIdNombre();
+			System.out.println(nombreProvincia);
+			int nbEscanosTotales = e.getEscanos();
+			
+			// votos de los partidos de la provincia
+			List<Votos> partidosProvincia = vdao.filtroPorAnnoYProvincia(anno, nombreProvincia);
+			System.out.println(partidosProvincia.size());
+			// blancos y validos de la provincia para calcular los totales
+			List<Votos> blancosValidosProvincia = vdao.filtroPorAnnoYProvinciaBlancosValidos(anno, nombreProvincia);
+			System.out.println(blancosValidosProvincia.size());
+			Votos[] arrayBlancosValidos = new Votos[blancosValidosProvincia.size()];
+			arrayBlancosValidos = blancosValidosProvincia.toArray(arrayBlancosValidos);
+			
+			// umbral de 3% de los votos totales
+			double umbralVotos = ((double)arrayBlancosValidos[0].getVotos()+arrayBlancosValidos[1].getVotos())*0.03;			
+			
+			List<Votos> partidosConEscanos = new ArrayList<Votos>();
+			
+			// saca partidos con más de 3% de votos totales
+			partidosProvincia.forEach(element -> {
+				if ((double)element.getVotos()>umbralVotos) 
+					partidosConEscanos.add(element);
+			});
+			
+			Votos[] arrayPartidos = new Votos[partidosConEscanos.size()];
+			arrayPartidos = partidosConEscanos.toArray(arrayPartidos);
+			
+			// array que guarda los escanos temporales:
+			int[] arrayEscanosTemporales = new int[arrayPartidos.length];
+			// array con los votos que quedan despues de cada division
+			double[][] arrayVotosCalculoEscanos = new double[nbEscanosTotales+1][arrayPartidos.length];
+			
+			// bucle para inicializar los valores
+			for (int i = 0; i < arrayPartidos.length; i++) {
+				arrayEscanosTemporales[i]=0;
+				arrayVotosCalculoEscanos[0][i] = (double)arrayPartidos[i].getVotos();
+			}
+			
+			for (int i = 0; i < nbEscanosTotales; i++) {
+				// indice del partido con maximos votos
+				int indexMax = this.getIndexOfLargest(arrayVotosCalculoEscanos[i]);
 				
+				// asigna en la siguiente columna el partido con mas votos y le divide entre el valor correspondiente
+				arrayVotosCalculoEscanos[i+1][indexMax] = (double)arrayVotosCalculoEscanos[0][indexMax]/(((double)arrayEscanosTemporales[indexMax])*2+1.0);
+				
+				// copia el resto de partidos en la siguiente columna
+				for (int j = 0; j < arrayPartidos.length; j++) {
+					if (j == indexMax) continue;
+					arrayVotosCalculoEscanos[i+1][j] = arrayVotosCalculoEscanos[i][j];
+				}
+				arrayEscanosTemporales[indexMax] += 1;
+			}
+			
+			for (int i = 0; i < arrayPartidos.length; i++) {
+				arrayPartidos[i].setEscS(arrayEscanosTemporales[i]);
+				vdao.update(arrayPartidos[i]);
 				System.out.println(arrayPartidos[i].getPart().getIdNombre()+": "+arrayEscanosTemporales[i]);
 			}
 		}

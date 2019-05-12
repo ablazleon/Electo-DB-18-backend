@@ -48,27 +48,31 @@ public class ResultadosResource {
 	//public String getResultados(@DefaultValue("2016") @QueryParam("anno") String anno ){
 	@GET 
 	@Produces(MediaType.APPLICATION_JSON)
-	public Provincia[] getResultados(@DefaultValue("2016") @QueryParam("anno") int anno,
+	public DatoPrueba getResultados(@DefaultValue("2016") @QueryParam("anno") int anno,
 									@DefaultValue("Madrid") @QueryParam("provincia") String provincia,
-									@DefaultValue("0") @QueryParam("leyEscano") String leyEscanos){
+									@DefaultValue("0") @QueryParam("leyEscanos") int leyEscanos){
 		
 		
 		// 1. Rellena la BBDD
-		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
-		//cmi.readPartidos();
-		//cmi.readProvincias();
-		//cmi.readVotos();
+		/*CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+		cmi.readPartidos();
+		cmi.readProvincias();
+		cmi.readVotos();
+		cmi.rellenaEscanos(2015);
+		cmi.rellenaEscanosSaint(2015);
 		cmi.rellenaEscanos(2016);
+		cmi.rellenaEscanosSaint(2016);
+		
 		ProvinciaDAO pdao = ProvinciaDAOImplementation.getInstance();
 		List<Provincia> provincias = pdao.readAllSinNacional();
 		Provincia[] arrayBlancosValidos = new Provincia[provincias.size()];
-		arrayBlancosValidos = provincias.toArray(arrayBlancosValidos);
+		arrayBlancosValidos = provincias.toArray(arrayBlancosValidos);*/
 		
 		 // 2. Crea json
 		 //	 Rellena mapa
 		 //	 Rellena votos
 		 //
-		/*VotosDAO vdao = VotosDAOImplementation.getInstance();
+		VotosDAO vdao = VotosDAOImplementation.getInstance();
 		
 		List<Votos> votosAnnoProv = vdao.filtroPorAnnoYProvincia(anno, provincia);
 		Votos[] arrayVotosProv = new Votos[votosAnnoProv.size()];
@@ -79,12 +83,15 @@ public class ResultadosResource {
 			int votos = arrayVotosProv[i].getVotos();
 			String nombrePartido = "null";
 			String color = "black";
+			int escanos = 0;
 			Partido partido = arrayVotosProv[i].getPart();
 			if(partido != null) {
 				nombrePartido = partido.getIdNombre();
 				color = partido.getColor();
 			}
-			votoss[i] = new votos(nombrePartido, votos, 13, color);
+			if (leyEscanos == 0) escanos = arrayVotosProv[i].getEscD();
+			else if (leyEscanos == 1) escanos = arrayVotosProv[i].getEscS();
+			votoss[i] = new votos(nombrePartido, votos, escanos, color);
 		}
 		
 		List<Votos> votosAnno = vdao.filtroPorAnno(anno);
@@ -130,7 +137,7 @@ public class ResultadosResource {
 				}
 			}
 		}
-		return new DatoPrueba(mapas, votoss);*/
-		return arrayBlancosValidos;
+		return new DatoPrueba(mapas, votoss);
+		//return arrayBlancosValidos;
 	}
 }
