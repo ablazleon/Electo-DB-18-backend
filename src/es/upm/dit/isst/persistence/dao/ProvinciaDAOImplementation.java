@@ -1,6 +1,6 @@
 package es.upm.dit.isst.persistence.dao;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.Session;
 
@@ -87,8 +87,28 @@ public class ProvinciaDAOImplementation implements ProvinciaDAO {
 	}
 	
 	@Override
-	public Collection<Provincia> readAll() {
-		Collection<Provincia> partidos = null;
+	public List<Provincia> readAllSinNacional() {
+		List<Provincia> partidos = null;
+		// TODO Auto-generated method stub
+		Session session = SessionFactoryService.get().openSession();
+		try {
+		  session.beginTransaction();
+		  // operaciones
+		  partidos = session.createQuery("select p from Provincia p where p.idNombre != :nombreNacional")
+				  .setParameter("nombreNacional", "Nacional")
+				  .list();
+		  session.getTransaction().commit();
+		} catch (Exception e) {
+		  // manejar excepciones
+		} finally {
+		  session.close();
+		}
+		return partidos;
+	}
+	
+	@Override
+	public List<Provincia> readAll() {
+		List<Provincia> partidos = null;
 		// TODO Auto-generated method stub
 		Session session = SessionFactoryService.get().openSession();
 		try {

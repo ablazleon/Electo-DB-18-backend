@@ -27,6 +27,9 @@ public class Votos implements Serializable{
 	@ManyToOne
 	private Partido part;
 	
+	private int escD;
+	private int escS;
+	
 	public Votos() {
 		
 	}
@@ -70,6 +73,24 @@ public class Votos implements Serializable{
 	public void setPart(Partido part) {
 		this.part = part;
 	}
+
+	public int getEscD() {
+		return escD;
+	}
+
+	public void setEscD(int escD) {
+		this.escD = escD;
+	}
+
+	public int getEscS() {
+		return escS;
+	}
+
+	public void setEscS(int escS) {
+		this.escS = escS;
+	}
+
+	
 	
 	
 

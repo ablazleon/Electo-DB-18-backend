@@ -17,8 +17,11 @@ public interface VotosDAO {
 	
 	public List<Votos> filtroPorAnnoYProvincia(int anno, String prov);
 	
+	public List<Votos> filtroPorAnnoYProvinciaBlancosValidos(int anno, String prov);
+	
 	public List<Votos> filtroPorAnno(int anno);
 
 	public List<Votos> readAll();
+	
 	
 }

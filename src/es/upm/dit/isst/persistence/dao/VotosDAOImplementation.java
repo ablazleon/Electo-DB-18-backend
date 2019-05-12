@@ -98,7 +98,28 @@ public class VotosDAOImplementation implements VotosDAO {
 		try {
 		  session.beginTransaction();
 		  // operaciones
-		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno AND v.prov.idNombre = :prov AND v.part NOT IN ('null', 'Votantes', 'Nulos', 'Validos', 'Blancos')")
+		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno AND v.prov.idNombre = :prov AND v.part.idNombre NOT IN ('Censo', 'null', 'Votantes', 'Nulos', 'Validos', 'Blancos')")
+				  .setParameter("prov", prov)
+				  .setParameter("anno", anno)
+				  .list();
+				 
+		  session.getTransaction().commit();
+		} catch (Exception e) {
+		  // manejar excepciones
+		} finally {
+		  session.close();
+		}
+		return votosList;
+	}
+	
+	public List<Votos> filtroPorAnnoYProvinciaBlancosValidos(int anno, String prov) {
+		List<Votos> votosList = null;
+		// TODO Auto-generated method stub
+		Session session = SessionFactoryService.get().openSession();
+		try {
+		  session.beginTransaction();
+		  // operaciones
+		  votosList = (List<Votos>)session.createQuery("select v from Votos v where v.fecha = :anno AND v.prov.idNombre = :prov AND v.part.idNombre IN ('Validos', 'Blancos')")
 				  .setParameter("prov", prov)
 				  .setParameter("anno", anno)
 				  .list();

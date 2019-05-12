@@ -48,22 +48,27 @@ public class ResultadosResource {
 	//public String getResultados(@DefaultValue("2016") @QueryParam("anno") String anno ){
 	@GET 
 	@Produces(MediaType.APPLICATION_JSON)
-	public DatoPrueba getResultados(@DefaultValue("2016") @QueryParam("anno") int anno,
+	public Provincia[] getResultados(@DefaultValue("2016") @QueryParam("anno") int anno,
 									@DefaultValue("Madrid") @QueryParam("provincia") String provincia,
 									@DefaultValue("0") @QueryParam("leyEscano") String leyEscanos){
 		
 		
 		// 1. Rellena la BBDD
-		//CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
 		//cmi.readPartidos();
 		//cmi.readProvincias();
 		//cmi.readVotos();
+		cmi.rellenaEscanos(2016);
+		ProvinciaDAO pdao = ProvinciaDAOImplementation.getInstance();
+		List<Provincia> provincias = pdao.readAllSinNacional();
+		Provincia[] arrayBlancosValidos = new Provincia[provincias.size()];
+		arrayBlancosValidos = provincias.toArray(arrayBlancosValidos);
 		
 		 // 2. Crea json
 		 //	 Rellena mapa
 		 //	 Rellena votos
 		 //
-		VotosDAO vdao = VotosDAOImplementation.getInstance();
+		/*VotosDAO vdao = VotosDAOImplementation.getInstance();
 		
 		List<Votos> votosAnnoProv = vdao.filtroPorAnnoYProvincia(anno, provincia);
 		Votos[] arrayVotosProv = new Votos[votosAnnoProv.size()];
@@ -125,6 +130,7 @@ public class ResultadosResource {
 				}
 			}
 		}
-		return new DatoPrueba(mapas, votoss);
+		return new DatoPrueba(mapas, votoss);*/
+		return arrayBlancosValidos;
 	}
 }

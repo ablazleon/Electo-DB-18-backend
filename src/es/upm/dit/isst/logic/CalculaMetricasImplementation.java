@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+
 
 import es.upm.dit.isst.persistence.dao.*;
 import es.upm.dit.isst.persistence.model.*;
@@ -22,7 +25,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readProvincias() {
-		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend3\\Provincia.csv");
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Provincia.csv");
 		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
 		
 //		System.out.println("Working Directory = " +
@@ -34,7 +37,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 		try {
 			Reader in = new FileReader(file);
 			CSVParser partyResults = CSVFormat.EXCEL
-					.withHeader("idProvincia", "escanos").withDelimiter(';')
+					.withHeader("idProvincia", "escanos").withDelimiter(',')
 					.parse(in);
 			for (CSVRecord pr : partyResults) {
 				
@@ -55,7 +58,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readPartidos() {
-		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend3\\Partidos.csv");
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Partidos.csv");
 		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
 		
 //		System.out.println("Working Directory = " +
@@ -88,7 +91,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 	
 	@Override
 	public void readVotos() {
-		File file = new File("C:\\Users\\ablaz\\git\\Electo-DB-18-backend3\\Votos.csv");
+		File file = new File("/home/isst/git/Electo-DB-18-backend/Votos.csv");
 		PartidoDAO pardao = PartidoDAOImplementation.getInstance();
 		ProvinciaDAO prodao = ProvinciaDAOImplementation.getInstance();
 		VotosDAO votdao = VotosDAOImplementation.getInstance();
@@ -102,7 +105,7 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 		try {
 			Reader in = new FileReader(file);
 			CSVParser partyResults = CSVFormat.EXCEL
-					.withHeader("idVoto","votos", "fecha", "prov", "part").withDelimiter(';')
+					.withHeader("votos", "fecha", "prov", "part").withDelimiter(',')
 					.parse(in);
 			for (CSVRecord pr : partyResults) {
 				
@@ -119,6 +122,9 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 				votos.setProv(prodao.read(provR));
 				votos.setPart(pardao.read(partR));
 				
+				votos.setEscD(0);
+				votos.setEscS(0);
+				
 				votdao.create(votos);
 						
 			}
@@ -126,6 +132,86 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void rellenaEscanos(int anno) {
+		ProvinciaDAO pdao = ProvinciaDAOImplementation.getInstance();
+		VotosDAO vdao = VotosDAOImplementation.getInstance();
+		List<Provincia> provincias = pdao.readAllSinNacional();
+		System.out.println(provincias.size());
+		for (Provincia e:provincias){
+			// nombre de la provincia
+			String nombreProvincia = e.getIdNombre();
+			System.out.println(nombreProvincia);
+			int nbEscanosTotales = e.getEscanos();
+			
+			// votos de los partidos de la provincia
+			List<Votos> partidosProvincia = vdao.filtroPorAnnoYProvincia(anno, nombreProvincia);
+			System.out.println(partidosProvincia.size());
+			// blancos y validos de la provincia para calcular los totales
+			List<Votos> blancosValidosProvincia = vdao.filtroPorAnnoYProvinciaBlancosValidos(anno, nombreProvincia);
+			System.out.println(blancosValidosProvincia.size());
+			Votos[] arrayBlancosValidos = new Votos[blancosValidosProvincia.size()];
+			arrayBlancosValidos = blancosValidosProvincia.toArray(arrayBlancosValidos);
+			
+			// umbral de 3% de los votos totales
+			double umbralVotos = ((double)arrayBlancosValidos[0].getVotos()+arrayBlancosValidos[1].getVotos())*0.03;			
+			
+			List<Votos> partidosConEscanos = new ArrayList<Votos>();
+			
+			// saca partidos con más de 3% de votos totales
+			partidosProvincia.forEach(element -> {
+				if ((double)element.getVotos()>umbralVotos) 
+					partidosConEscanos.add(element);
+			});
+			
+			Votos[] arrayPartidos = new Votos[partidosConEscanos.size()];
+			arrayPartidos = partidosConEscanos.toArray(arrayPartidos);
+			
+			// array que guarda los escanos temporales:
+			int[] arrayEscanosTemporales = new int[arrayPartidos.length];
+			// array con los votos que quedan despues de cada division
+			double[][] arrayVotosCalculoEscanos = new double[nbEscanosTotales+1][arrayPartidos.length];
+			
+			// bucle para inicializar los valores
+			for (int i = 0; i < arrayPartidos.length; i++) {
+				arrayEscanosTemporales[i]=0;
+				arrayVotosCalculoEscanos[0][i] = (double)arrayPartidos[i].getVotos();
+			}
+			
+			for (int i = 0; i < nbEscanosTotales; i++) {
+				// indice del partido con maximos votos
+				int indexMax = this.getIndexOfLargest(arrayVotosCalculoEscanos[i]);
+				
+				// asigna en la siguiente columna el partido con mas votos y le divide entre el valor correspondiente
+				arrayVotosCalculoEscanos[i+1][indexMax] = (double)arrayVotosCalculoEscanos[0][indexMax]/((double)arrayEscanosTemporales[indexMax]+2.0);
+				
+				// copia el resto de partidos en la siguiente columna
+				for (int j = 0; j < arrayPartidos.length; j++) {
+					if (j == indexMax) continue;
+					arrayVotosCalculoEscanos[i+1][j] = arrayVotosCalculoEscanos[i][j];
+				}
+				arrayEscanosTemporales[indexMax] += 1;
+			}
+			
+			for (int i = 0; i < arrayPartidos.length; i++) {
+				
+				System.out.println(arrayPartidos[i].getPart().getIdNombre()+": "+arrayEscanosTemporales[i]);
+			}
+		}
+		
+		
+	}
+	
+	private static int getIndexOfLargest( double[] array )
+	{
+	  if ( array == null || array.length == 0 ) return -1; 
+	  int largest = 0;
+	  for ( int i = 1; i < array.length; i++ )
+	  {
+	      if ( array[i] > array[largest] ) largest = i;
+	  }
+	  return largest;
 	}
 
 }
