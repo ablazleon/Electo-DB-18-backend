@@ -348,8 +348,28 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 				System.out.println(arrayPartidos[i].getPart().getIdNombre()+": "+arrayEscanosTemporales[i]);
 			}
 		}
+	}
+	
+	public void rellenaEscanosNacional( int anno) {
 		
-		
+		VotosDAO vdao = VotosDAOImplementation.getInstance();
+		//Lista de todos los partidos presentados a las elecciones de ese anno
+		List<Votos> votosN = vdao.readPartidosNacional(anno);
+		//Bucle para recorrer estos partidos
+		for (Votos e: votosN) {
+			//Lista de todos los votos de un partido en cada provincia
+			List<Votos> votosPartido = vdao.filtroPorAnnoYPartido(anno, e.getPart().getIdNombre());
+			int escTotD = 0;
+			int escTotS = 0;
+			//Buccle para coger el nº de escaños de ese partido y sumarlos al total
+			for(Votos q: votosPartido) {
+				escTotD+= q.getEscD();
+				escTotS+= q.getEscS();
+			}
+			e.setEscD(escTotD);
+			e.setEscS(escTotS);
+			vdao.update(e);
+		}
 	}
 	
 	private static int getIndexOfLargest( double[] array )

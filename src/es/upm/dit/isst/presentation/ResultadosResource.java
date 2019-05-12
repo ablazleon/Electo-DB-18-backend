@@ -63,7 +63,10 @@ public class ResultadosResource {
 		cmi.rellenaEscanos(2015);
 		cmi.rellenaEscanosSaint(2015);
 		cmi.rellenaEscanos(2016);
-		cmi.rellenaEscanosSaint(2016);*/
+		cmi.rellenaEscanosSaint(2016);
+		cmi.rellenaEscanosNacional(2011);
+		cmi.rellenaEscanosNacional(2015);
+		cmi.rellenaEscanosNacional(2016);*/
 		
 		 // 2. Crea json
 		 //	 Rellena mapa

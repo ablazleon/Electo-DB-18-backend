@@ -153,6 +153,47 @@ public class VotosDAOImplementation implements VotosDAO {
 		}
 		return votosList;
 	}
+	
+	@Override
+	public List<Votos> readPartidosNacional(int anno) {
+		List<Votos> partidos = null;
+		// TODO Auto-generated method stub
+		Session session = SessionFactoryService.get().openSession();
+		try {
+		  session.beginTransaction();
+		  // operaciones
+		  partidos = session.createQuery("select v from Votos v where v.fecha = :anno AND v.prov.idNombre = 'Nacional' AND v.part.idNombre NOT IN ('Censo', 'null', 'Votantes', 'Nulos', 'Validos', 'Blancos')")
+				  .setParameter("anno", anno)
+				  .list();
+		  session.getTransaction().commit();
+		} catch (Exception e) {
+		  // manejar excepciones
+		} finally {
+		  session.close();
+		}
+		return partidos;
+	}
+	
+	@Override
+	public List<Votos> filtroPorAnnoYPartido(int anno, String part) {
+		List<Votos> partidos = null;
+		// TODO Auto-generated method stub
+		Session session = SessionFactoryService.get().openSession();
+		try {
+		  session.beginTransaction();
+		  // operaciones
+		  partidos = session.createQuery("select v from Votos v where v.fecha = :anno AND v.part.idNombre = :part ")
+				  .setParameter("anno", anno)
+				  .setParameter("part", part)
+				  .list();
+		  session.getTransaction().commit();
+		} catch (Exception e) {
+		  // manejar excepciones
+		} finally {
+		  session.close();
+		}
+		return partidos;
+	}
 
 	@Override
 	public List<Votos> readAll() {
