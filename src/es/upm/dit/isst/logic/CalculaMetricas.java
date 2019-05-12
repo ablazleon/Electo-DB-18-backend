@@ -5,4 +5,5 @@ public interface CalculaMetricas {
 	public void readPartidos();
 	
 	public void readVotos();
+	void readVotos2015();
 }
