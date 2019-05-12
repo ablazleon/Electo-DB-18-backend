@@ -8,46 +8,68 @@
 7,Baleares,8,,,,Podemos (PODEMOS),PODEMOS,purple
 8,Barcelona,31,,,,Ciudadanos-Partido de la Ciudadan&iacute;a (C's),CS,orange
 9,Burgos,4,,,,Esquerra Republicana de Catalunya-Catalunya S&iacute; (ERC-CATSI),ERC,yellow
-10,Caceres,4,,,,Democr&agrave;cia i Llibertat (DL),CDC,orange
-11,Cadiz,9,,,,Euzko Alderdi Jeltzalea-Partido Nacionalista Vasco (EAJ-PNV),PNV,green
-12,Castellon,5,,,,Unidad Popular (IU-UP),BILDU,green
-13,CiudadReal,5,,,,Euskal Herria Bildu (EH Bildu),CCA,yellow
-14,Cordoba,6,,,,Coalici&oacute;n Canaria-Partido Nacionalista Canario (CCa-PNC),PACMA,green
-15,ACoruna,8,,,,Partido Animalista Contra el Maltrato Animal (PACMA),VERDES,green
+10,Caceres,4,,,,Converg&egrave;ncia Democr&agrave;tica de Catalunya (CDC),CDC,orange
+11,Cadiz,9,,,,Euzko Alderdi Jeltzalea-Partido Nacionalista Vasco (EAJ-PNV),PNV,olive
+12,Castellon,5,,,,Euskal Herria Bildu (EH Bildu),BILDU,green
+13,CiudadReal,5,,,,Coalici&oacute;n Canaria-Partido Nacionalista Canario (CCa-PNC),CCA,gold
+14,Cordoba,6,,,,Partido Animalista Contra el Maltrato Animal (PACMA),PACMA,green
+15,ACoruna,8,,,,Recortes Cero-Grupo Verde,VERDES,green
 16,Cuenca,3,,,,Uni&oacute;n Progreso y Democracia (UPyD),UPYD,pink
-17,Girona,6,,,,N&oacute;s-Candidatura Galega (BNG-CG-FOGA-PCPG-PG),VOX,green
-18,Granada,7,,,,Uni&oacute; Democr&agrave;tica de Catalunya (unio.cat),BNG,white
-19,Guadalajara,3,,,,Vox (VOX),OTROS,grey
-20,Guipuzcoa,6,,,,Recortes Cero-Grupo Verde,,
-21,Huelva,5,,,,M&Eacute;S per Mallorca (M&Eacute;S),,
-22,Huesca,3,,,,Partido Comunista de los Pueblos de Espa&ntilde;a (PCPE),,
-23,Jaen,5,,,,Geroa Bai (GBAI),,
-24,Leon,4,,,,Otros,,
-25,Lerida,4,,,,,,
-26,Logrono,4,,,,,,
-27,Lugo,4,,,,,,
-28,Madrid,36,,,,,,
-29,Malaga,11,,,,,,
-30,Murcia,10,,,,,,
-31,Navarra,5,,,,,,
-32,Orense,4,,,,,,
-33,Oviedo,10,,,,,,
-34,Palencia,3,,,,,,
-35,LasPalmas,8,,,,,,
-36,Pontevedra,7,,,,,,
-37,Salamanca,4,,,,,,
-38,SantaCruzdeTenerife,7,,,,,,
-39,Santander,5,,,,,,
-40,Segovia,3,,,,,,
-41,Sevilla,12,,,,,,
-42,Soria,2,,,,,,
-43,Tarragona,6,,,,,,
-44,Teruel,3,,,,,,
-45,Toledo,6,,,,,,
-46,Valencia,16,,,,,,
-47,Valladolid,5,,,,,,
-48,Vizcaya,8,,,,,,
-49,Zamora,3,,,,,,
-50,Zaragoza,7,,,,,,
-51,Ceuta,1,,,,,,
-52,Melilla,1,,,,,,
+17,Girona,6,,,,Vox (VOX),VOX,green
+18,Granada,7,,,,N&oacute;s-Candidatura Galega (BNG-CG-FOGA-PCPG-PG),BNG-CG-FOGA-PCPG-PG,aqua
+19,Guadalajara,3,,,,Unidad Popular (IU-UP),IU-UP,maroon
+20,Guipuzcoa,6,,,,Partido Comunista de los Pueblos de Espa&ntilde;a (PCPE),PCPE,darkred
+21,Huelva,5,,,,Uni&oacute; Democr&agrave;tica de Catalunya (unio.cat),unio.cat,darkblue
+22,Huesca,3,,,,Democr&agrave;cia i Llibertat (DL),DL,rebeccapurple
+23,Jaen,5,,,,M&Eacute;S per Mallorca (M&Eacute;S),Mes,yellowgreen
+24,Leon,4,,,,Geroa Bai (GBAI),GBAI,indianred
+25,Lerida,4,,,,La Izquierda Plural (IU-LV),IU-LV,olive
+26,Logrono,4,,,,Amaiur (AMAIUR),AMAIUR,lightblue
+27,Lugo,4,,,,Esquerra Republicana de Catalunya (ERC/ESQUERRA),ERC/ESQUERRA,khaki
+28,Madrid,36,,,,Bloque Nacionalista Galego (BNG),BNG,lightsteelblue
+29,Malaga,11,,,,Coalici&oacute;n Canaria - Nueva Canarias (CC-NC-PNC),CC-NC-PNC,lightyellow
+30,Murcia,10,,,,Foro de Ciudadanos (FAC),FAC,darkmagenta
+31,Navarra,5,,,,Bloc-Iniciativa-Verds-Equo-Coalici&oacute; Comprom&iacute;s (COMPROM&Iacute;S-Q),COMPROMIS,darkorange
+32,Orense,4,,,,Equo (EQUO),EQUO,forestgreen
+33,Oviedo,10,,,,Partido Andalucista (PA),PA,limegreen
+34,Palencia,3,,,,Plataforma per Catalunya (PxC),PxC,slategray
+35,LasPalmas,8,,,,Partido Regionalista de Cantabria (PRC),PRC,goldenrod
+36,Pontevedra,7,,,,Converg&egrave;ncia i Uni&oacute; (CiU),CiU,mediumblue
+37,Salamanca,4,,,,Otros,OTROS,grey
+38,SantaCruzdeTenerife,7,,,,Partido Socialista de Euskadi-Euskadiko Ezkerra (PSE-EE/PSOE),PSE-EE/PSOE,olivedrab
+39,Santander,5,,,,Partido Popular-Partido Aragon&eacute;s (PP-PAR),PP-PAR,crimson
+40,Segovia,3,,,,Esca&ntilde;os en Blanco (Eb),Escanos en blanco,black
+41,Sevilla,12,,,,Esquerra Republicana del Pa&iacute;s Valenci&agrave; (ERPV),ERPV,darkorange
+42,Soria,2,,,,Partido Popular-Extremadura Unida (PP-EU),PP-EU,steelblue
+43,Tarragona,6,,,,La Izquierda Plural (IU-V-SIEX),IU-V-SIEX,indianred
+44,Teruel,3,,,,PSM-IniciativaVerds-Entesa-Equo (PSM-IV-EXM-EQUO),PSM-IV-EXM-EQUO,forestgreen
+45,Toledo,6,,,,Esquerra Republicana de Catalunya (ERC-RI.cat),ERC-RI.cat,darkorange
+46,Valencia,16,,,,La Izquierda Plural (EUPV-EV),EUPV-EV,red
+47,Valladolid,5,,,,La Izquierda Plural (IULV-CA),IULV-CA,red
+48,Vizcaya,8,,,,La Izquierda Plural (IUCL),IUCL,red
+49,Zamora,3,,,,La Izquierda Plural (EUIB),EUIB,red
+50,Zaragoza,7,,,,Esquerra Republicana (ESQUERRA),ESQUERRA,orange
+51,Ceuta,1,,,,Iniciativa per Catalunya Verds-Esquerra Unida i Alternativa (ICV-EUiA),ICV-EUiA,red
+52,Melilla,1,,,,La Izquierda Plural (IUCLM-LV),IUCLM-LV,red
+,,,,,,Partit dels Socialistes de Catalunya (PSC-PSOE),PSC-PSOE,salmon
+,,,,,,Partido dos Socialistas de Galicia-PSOE (PSdeG-PSOE),PSdeG-PSOE,salmon
+,,,,,,La Izquierda Plural (EU-V),EU-V,salmon
+,,,,,,La Izquierda Plural (ChA-IU),ChA-IU,red
+,,,,,,Esquerra Republicana de Catalunya (ERC-RI.cat/ESQUERRA),ERC-RI.cat/ESQUERRA,darkorange
+,,,,,,La Izquierda Plural (IUV-RM),IUV-RM,red
+,,,,,,Uni&oacute;n del Pueblo Navarro-Partido Popular (UPN-PP),UPN-PP,darkblue
+,,,,,,La Izquierda Plural (IZQUIERDA-EZKERRA),IZQUIERDA-EZKERRA,red
+,,,,,,La Izquierda Plural (IU-IX),IU-IX,red
+,,,,,,La Izquierda Plural (IUC-IpH-LV),IUC-IpH-LV,red
+,,,,,,S&iacute; se Puede-Socialistas por Tenerife-EQUO (SSP-SxTF-EQUO),SSP-SxTF-EQUO,darkred
+,,,,,,La Izquierda Plural (IU-PSDC),IU-PSDC,red
+,,,,,,La Izquierda Plural (IU),IU,red
+,,,,,,La Izquierda Plural (IUC),IUC,red
+,,,,,,Podemos-Ahal Dugu (PODEMOS),PODEMOS-AD,purple
+,,,,,,Comprom&iacute;s-Podemos-&Eacute;s el Moment (PODEMOS-COMPROM&Iacute;S),PODEMOS-COMPROMIS,tomato
+,,,,,,En Com&uacute; Podem (EN COM&Uacute;),COMUN,deeppink
+,,,,,,Partit Comunista del Poble de Catalunya (PCPC),PCPC,red
+,,,,,,En Marea (PODEMOS-En Marea-ANOVA-EU),PODEMOS-En Marea-ANOVA-EU,purple
+,,,,,,Podemos-Ahora Alto Arag&oacute;n en Com&uacute;n (PODEMOS),PODEMOS-AA,purple
+,,,,,,Partido Popular-Foro Asturias (PP-FORO),PP-FORO,darkblue
+,,,,,,Partido Socialista Obrero Espa&ntilde;ol-Nueva Canarias (PSOE-NCa),PSOE-NCa,moccasin
