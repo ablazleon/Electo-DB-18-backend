@@ -29,6 +29,7 @@ public class Votos implements Serializable{
 	
 	private int escD;
 	private int escS;
+	private int escP;
 	
 	public Votos() {
 		
@@ -89,6 +90,15 @@ public class Votos implements Serializable{
 	public void setEscS(int escS) {
 		this.escS = escS;
 	}
+	
+	public int getEscP() {
+		return escP;
+	}
+
+	public void setEscP(int escP) {
+		this.escP = escP;
+	}
+
 
 	
 	

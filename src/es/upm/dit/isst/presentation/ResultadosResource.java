@@ -54,7 +54,7 @@ public class ResultadosResource {
 		
 		
 		// 1. Rellena la BBDD
-		/*CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
 		cmi.readPartidos();
 		cmi.readProvincias();
 		cmi.readVotos();
@@ -66,7 +66,10 @@ public class ResultadosResource {
 		cmi.rellenaEscanosSaint(2016);
 		cmi.rellenaEscanosNacional(2011);
 		cmi.rellenaEscanosNacional(2015);
-		cmi.rellenaEscanosNacional(2016);*/
+		cmi.rellenaEscanosNacional(2016);
+		cmi.rellenaEscanosProporcional(2011);
+		cmi.rellenaEscanosProporcional(2015);
+		cmi.rellenaEscanosProporcional(2016);
 		
 		 // 2. Crea json
 		 //	 Rellena mapa
@@ -91,6 +94,7 @@ public class ResultadosResource {
 			}
 			if (leyEscanos == 0) escanos = arrayVotosProv[i].getEscD();
 			else if (leyEscanos == 1) escanos = arrayVotosProv[i].getEscS();
+			else if (leyEscanos == 2) escanos = arrayVotosProv[i].getEscP();
 			votoss[i] = new votos(nombrePartido, votos, escanos, color);
 		}
 		
