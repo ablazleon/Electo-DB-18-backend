@@ -54,23 +54,23 @@ public class ResultadosResource {
 		
 		
 		// 1. Rellena la BBDD
-		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
-		cmi.readPartidos();
-		cmi.readProvincias();
-		cmi.readVotos();
-		cmi.rellenaEscanos(2011);
-		cmi.rellenaEscanosSaint(2011);
-		cmi.rellenaEscanos(2015);
-		cmi.rellenaEscanosSaint(2015);
-		cmi.rellenaEscanos(2016);
-		cmi.rellenaEscanosSaint(2016);
-		cmi.rellenaEscanosNacional(2011);
-		cmi.rellenaEscanosNacional(2015);
-		cmi.rellenaEscanosNacional(2016);
-		cmi.rellenaEscanosProporcional(2011);
-		cmi.rellenaEscanosProporcional(2015);
-		cmi.rellenaEscanosProporcional(2016);
-		
+//		CalculaMetricasImplementation cmi = new CalculaMetricasImplementation();
+//		cmi.readPartidos();
+//		cmi.readProvincias();
+//		cmi.readVotos();
+//		cmi.rellenaEscanos(2011);
+//		cmi.rellenaEscanosSaint(2011);
+//		cmi.rellenaEscanos(2015);
+//		cmi.rellenaEscanosSaint(2015);
+//		cmi.rellenaEscanos(2016);
+//		cmi.rellenaEscanosSaint(2016);
+//		cmi.rellenaEscanosNacional(2011);
+//		cmi.rellenaEscanosNacional(2015);
+//		cmi.rellenaEscanosNacional(2016);
+//		cmi.rellenaEscanosProporcional(2011);
+//		cmi.rellenaEscanosProporcional(2015);
+//		cmi.rellenaEscanosProporcional(2016);
+//		
 		 // 2. Crea json
 		 //	 Rellena mapa
 		 //	 Rellena votos
