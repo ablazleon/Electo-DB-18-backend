@@ -350,6 +350,77 @@ public class CalculaMetricasImplementation implements CalculaMetricas{
 		}
 	}
 	
+	public void rellenaEscanosProporcional(int anno) {
+ 		ProvinciaDAO pdao = ProvinciaDAOImplementation.getInstance();
+		VotosDAO vdao = VotosDAOImplementation.getInstance();
+		List<Provincia> provincias = pdao.readAll();
+		System.out.println(provincias.size());
+		for (Provincia e:provincias){
+			// nombre de la provincia
+			String nombreProvincia = e.getIdNombre();
+			System.out.println(nombreProvincia);
+			int nbEscanosTotales = e.getEscanos();
+			
+			// votos de los partidos de la provincia
+			List<Votos> partidosProvincia = vdao.filtroPorAnnoYProvincia(anno, nombreProvincia);
+			System.out.println(partidosProvincia.size());
+			// blancos y validos de la provincia para calcular los totales
+			List<Votos> blancosValidosProvincia = vdao.filtroPorAnnoYProvinciaBlancosValidos(anno, nombreProvincia);
+			System.out.println(blancosValidosProvincia.size());
+			
+			Votos[] arrayBlancosValidos = new Votos[blancosValidosProvincia.size()];
+			arrayBlancosValidos = blancosValidosProvincia.toArray(arrayBlancosValidos);
+			
+			// Votos totales
+			int votosTotales = arrayBlancosValidos[0].getVotos()+arrayBlancosValidos[1].getVotos();			
+			int precioEscano = votosTotales/nbEscanosTotales;
+			int escanosARepartir = nbEscanosTotales;
+			System.out.println("El precio por escano es: " +precioEscano);
+			
+			
+							
+			// Cambiamos el numero escanos provisionalmente
+			
+			partidosProvincia.forEach(element -> {		    
+				int partidoEscanoPrevio = element.getVotos()/precioEscano;
+				element.setEscP(partidoEscanoPrevio);		
+							
+			});
+			
+			// pasamos la lista a un array
+			Votos[] arrayPartidosProvincia = new Votos[partidosProvincia.size()];
+			arrayPartidosProvincia = partidosProvincia.toArray(arrayPartidosProvincia);
+			
+			//guardamos en un array el resto de votos que quedan. Todos los arrays tienen los mismos indices
+					
+			double[] arrayResto = new double[partidosProvincia.size()];
+			for(int i=0;i<arrayResto.length;i++) {
+				arrayResto[i] = arrayPartidosProvincia[i].getVotos()%precioEscano;
+			}
+			
+			//vemos cuantos escanos nos quedan por repartir y los guardamos en escanosARepartir
+			
+			for(int i=0; i < arrayPartidosProvincia.length ;i++) {
+				escanosARepartir -= arrayPartidosProvincia[i].getEscP();
+			}
+			
+			//Sumamos un escaño Partido que tiene un resto mayor iteramos escanosARepartir veces.
+			
+			for(int i=0; i < escanosARepartir;i++) {
+				int indexMax = this.getIndexOfLargest(arrayResto);	
+				arrayPartidosProvincia[indexMax].setEscP(arrayPartidosProvincia[indexMax].getEscP()+1);
+				arrayResto[indexMax] = 0;
+			}
+			
+			//Recorremos el array haciendo un update para cargar los nuevos valores en la tabla
+			
+			for(int i=0;i< arrayPartidosProvincia.length;i++) {
+				vdao.update(arrayPartidosProvincia[i]);
+			}
+		
+		}
+	}
+	
 	public void rellenaEscanosNacional( int anno) {
 		
 		VotosDAO vdao = VotosDAOImplementation.getInstance();
